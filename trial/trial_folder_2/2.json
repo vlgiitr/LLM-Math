@@ -1,0 +1,6 @@
+{
+    "problem": "We flip a fair coin 10 times.  What is the probability that we get heads in at least 6 of the 10 flips?",
+    "level": "Level 4",
+    "type": "Counting & Probability",
+    "solution": "\\boxed{\\frac{193}{512}}"
+}

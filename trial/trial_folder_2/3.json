@@ -1,0 +1,6 @@
+{
+    "problem": "For a particular peculiar pair of  dice,  the probabilities of rolling 1, 2, 3, 4, 5, and 6 on each die are in the ratio $1:2:3:4:5:6$.  What is the probability of rolling a total of 7 on the two dice?",
+    "level": "Level 4",
+    "type": "Counting & Probability",
+    "solution": "\\boxed{\\frac{8}{63}}]"
+}
