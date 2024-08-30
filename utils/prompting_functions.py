@@ -26,7 +26,8 @@ def model_name(model_id):
 def get_sys_prompt(model_id):
     if model_id == "meta-llama/Meta-Llama-3.1-8B":
         system_prompt = ''''Given the following math problem, provide a complete and detailed solution.
-        The Problem is: What is 4+5'''
+        Conclude by outputting the final answer after converting into plain text in next line in the format of dictionary key-value pair : {"answer": "final answer"}.
+        The Problem is:'''
     elif model_id == "meta-llama/Meta-Llama-3.1-8B-Instruct":
         system_prompt = '''You are an expert in Mathematics which solves all problems in one line. Given the following math problem, provide a complete final solution but optimum.
         DON'T USE Boxed AND Latex, Conclude by outputting the final answer in last line in the following dictionary format:
