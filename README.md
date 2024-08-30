@@ -1,6 +1,6 @@
 # MATH VS LLMs
 
-This project evaluates the mathematical capabilities of Large Language Models (LLMs) and examines how providing hints in prompts affects their performance. We also look at the ability of VLMs to solve geometrical questions. Further we look at how adverserial hinting can misdirect the answers of the LLMs and look at capabilites an LLM to get out of that direction and realise the mistake.
+This project evaluates the mathematical capabilities of Large Language Models (LLMs) and examines how providing hints in prompts affects their performance. Further we look at how adverserial hinting and examples can misdirect the answers of the LLMs and look at capabilites an LLM to get out of that direction and realise the mistake.
 
 ## Project Overview
 Here we prompt the mathematical problems to LLMs, with and without hints, and analyzes the responses to assess:
@@ -17,8 +17,12 @@ pip install -r requirements.txt
 ```
 To generate the baseline:
 ```bash
-cd Evaluation/
-python baseline.py
+python Evaluation/baseline.py
+```
+
+Similary, To generate other results:
+```bash
+python Evaluation/{filename}.py
 ```
 
 ## Contributing

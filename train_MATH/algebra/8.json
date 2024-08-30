@@ -1,0 +1,8 @@
+{
+    "problem": "Find the distance between the points $(-5,-2)$ and $(7,3)$.",
+    "level": "Level 2",
+    "type": "Algebra",
+    "solution": "We use the distance formula to find that the distance is \\[\\sqrt{(-5 -7)^2 + (-2-3)^2} = \\!\\sqrt{144 + 25} = \\boxed{13}.\\]",
+    "hint": "To find the distance between two points, use the distance formula, which calculates the square root of the sum of the squared differences in the x-coordinates and y-coordinates. \n",
+    "answer": "13"
+}

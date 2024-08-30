@@ -6,7 +6,7 @@ import os
 import json
 
 from utils.metrics import combined_function
-from utils.prompting_functions import get_sys_prompt, model_name
+from utils.prompting_functions import get_sys_prompt, chain_of_thought, model_name
 
 login()
 
@@ -77,10 +77,9 @@ for model_id in model_ids:
     for dataset_dir in dataset_dirs:
         correct_data_eval = 0 
         total_data_eval = 0
-
         # Loading System Prompts model-wise
         system_prompt = get_sys_prompt(model_id)
-        
+        CoT_prompt = chain_of_thought(dataset_dir)
         for json_file in os.listdir(dataset_dir):
             if json_file.endswith('.json'):
                 file_path = os.path.join(dataset_dir, json_file)
@@ -89,33 +88,39 @@ for model_id in model_ids:
                 with open(file_path, 'r') as file:
                     data = json.load(file)
                 problem = data.get('problem', '')
+                Hint = data.get('hint', '')
                 final_solution = data.get('answer', '')
-
+                
                 # Feeding questions
                 if model_id == "google/gemma-2-2b-it":
                     messages = [
-                        {"role": "user", "content": f"""{system_prompt}:
-                        Problem: {problem}"""}
+                        {"role": "user", "content": f"""{system_prompt}: 
+                        {CoT_prompt}
+                        Problem: {problem} 
+                        Hint: {Hint}"""}
                         ]
                 elif model_id == "meta-llama/Meta-Llama-3.1-8B":
                     messages = [
                         f"""{system_prompt}: 
-                        Problem: {problem}"""
+                        {CoT_prompt}
+                        Problem: {problem}
+                        Hint: {Hint}"""
                         ]
                 else:
-                    user_prompt: f"""Problem: {problem}"""
+                    user_prompt: f"""{CoT_prompt}
+                    Problem: {problem}
+                    Hint: {Hint}"""
                     messages = [
                         {"role": "system", "content": system_prompt},
                         {"role": "user", "content": user_prompt}
-                        ]
-                    
+                        ]                                        
                 #Generating Outputs and extracting the answer
                 outputs = pipe(
                     messages,
                     max_new_tokens=1024,
                     do_sample=False,
                 trust_remote_code = True
-                )       
+                )                
                 # Extract the model's generated solution properly
                 assistant_response = None
                 try:
@@ -152,9 +157,9 @@ for model_id in model_ids:
         data_eval = correct_data_eval/total_data_eval
         model_results[f'{dataset_dir[9:-1]}'] = data_eval           
     model_eval = correct_model_eval/total_model_eval  
-    model_results['final'] = model_eval
+    model_results['final'] = model_eval 
     modelname = model_name(model_id)       
-    file_path = 'Evaluation/Dataset_score/' + f'base_{modelname}.json'
+    file_path = 'Evaluation/Dataset_score/' + f'CoT_Hint_{modelname}.json'
     with open(file_path, 'w') as file:
         json.dump(model_results, file, indent=4)
 print("All models evaluated.")
