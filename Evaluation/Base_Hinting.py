@@ -104,6 +104,13 @@ for model_id in model_ids:
                         Problem: {problem}
                         Hint: {hint}"""
                         ]
+                elif model_id == "mistralai/Mistral-7B-Instruct-v0.3":
+                    messages = [
+                        f"""<s>[INST] Using this information : {system_prompt} 
+                        Answer the Question : 
+                        Problem: {problem}
+                        Hint: {hint} [/INST]"""
+                        ]    
                 else:
                     user_prompt: f"""Problem: {problem}
                     Hint: {hint}"""
@@ -131,17 +138,16 @@ for model_id in model_ids:
                 output = combined_function(f"""r'''{assistant_response}'''""")
 
                 #Confirming the answers
-                prompt = build_user_query(f"""{problem}""",
-                                          f"""{output}""",
-                                          f"""{final_solution}""", 
-                                        base_prompt)
+                prompt = build_user_query(problem, output, final_solution, base_prompt)
                 model_inputs = tokenizer([prompt], return_tensors="pt").to(device)
-                generated_ids = model.generate(model_inputs.input_ids, temperature=0, max_new_tokens=16, eos_token_id=100005)
-                generated_ids = [
-                    output_ids[len(input_ids) :]
-                    for input_ids, output_ids in zip(model_inputs.input_ids, generated_ids)
-                ]
-                response = tokenizer.batch_decode(generated_ids, skip_special_tokens=False)[0]
+                
+                with torch.no_grad():
+                    generated_ids = model.generate(model_inputs.input_ids, temperature=0, max_new_tokens=16, eos_token_id=100005)
+                    generated_ids = [
+                        output_ids[len(input_ids) :]
+                        for input_ids, output_ids in zip(model_inputs.input_ids, generated_ids)
+                    ]
+                    response = tokenizer.batch_decode(generated_ids, skip_special_tokens=False)[0]
 
                 if assistant_response:
                     if str(response) == "<correct><|im_end|>":
