@@ -17,12 +17,14 @@ pip install -r requirements.txt
 ```
 To generate the baseline:
 ```bash
+cd Evaluation
 python Evaluation/baseline.py
 ```
 
 Similary, To generate other results:
 ```bash
-python Evaluation/{filename}.py
+cd Evaluation
+python {filename}.py
 ```
 
 ## Contributing
