@@ -5,9 +5,7 @@ import os
 import json
 
 from utils.metrics import combined_function
-from utils.prompting_functions import get_sys_prompt, model_name
-
-login()
+from utils.prompting_functions import get_sys_prompt, model_name, get_few_shot_adv_hint_prompt
 
 model_ids = [
   #  "meta-llama/Meta-Llama-3.1-8B",
@@ -85,6 +83,7 @@ for model_id in model_ids:
 
         # Loading System Prompts model-wise
         system_prompt = get_sys_prompt(model_id)
+        few_shot_prompt = get_few_shot_adv_hint_prompt(dataset_dir)
 
         for json_file in os.listdir(dataset_dir):
             if json_file.endswith('.json'):
@@ -94,32 +93,31 @@ for model_id in model_ids:
                 with open(file_path, 'r') as file:
                     data = json.load(file)
                 problem = data.get('problem', '')
-                hint = data.get('hint', '')
                 final_solution = data.get('answer', '')
                 
                 # Feeding questions
                 if model_id == "google/gemma-2-2b-it":
                     messages = [
                         {"role": "user", "content": f"""{system_prompt}: 
-                        Problem to be solved: {problem}
-                        Hint: {hint}"""}
+                        {few_shot_prompt}
+                        Problem to be solved: {problem}"""}
                         ]
                 elif model_id == "meta-llama/Meta-Llama-3.1-8B":
                     messages = [
                         f"""{system_prompt}: 
-                        Problem to be solved: {problem}
-                        Hint: {hint}"""
+                        {few_shot_prompt}
+                        Problem to be solved: {problem}"""
                         ]
                 elif model_id == "mistralai/Mistral-7B-Instruct-v0.3":
                     messages = [
                         f"""<s>[INST] Using this information : {system_prompt} 
-                        Answer the Question : 
-                        Problem to be solved: {problem}
-                        Hint: {hint} [/INST]"""
-                        ]    
+                        Answer the Question :
+                        {few_shot_prompt} 
+                        Problem to be solved: {problem} [/INST]"""
+                        ]
                 else:
-                    user_prompt = f"""Problem to be solved: {problem}
-                    Hint: {hint}"""
+                    user_prompt= f"""{few_shot_prompt}
+                    Problem to be solved: {problem}"""
                     messages = [
                         {"role": "system", "content": system_prompt},
                         {"role": "user", "content": user_prompt}
@@ -162,7 +160,7 @@ for model_id in model_ids:
     model_eval = correct_model_eval/total_model_eval  
     model_results['final'] = model_eval
     modelname = model_name(model_id)       
-    file_path = '/home/aniketa/vlg/copyright-project/shivank/transformers/LLM-Math/Evaluation/Dataset_score' + f'base_hint_{modelname}.json'
+    file_path = '/home/aniketa/vlg/copyright-project/shivank/transformers/LLM-Math/Evaluation/Dataset_score' + f'few-shot_adv_hint_{modelname}.json'
     with open(file_path, 'w') as file:
         json.dump(model_results, file, indent=4)
 print("All models evaluated.")

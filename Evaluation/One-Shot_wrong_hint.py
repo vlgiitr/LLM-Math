@@ -5,7 +5,7 @@ import os
 import json
 
 from utils.metrics import combined_function
-from utils.prompting_functions import get_sys_prompt, model_name, get_few_shot_adv_prompt
+from utils.prompting_functions import get_sys_prompt, model_name, get_one_shot_wrong_hint_prompt
 
 model_ids = [
   #  "meta-llama/Meta-Llama-3.1-8B",
@@ -29,7 +29,6 @@ dataset_dirs = [
     '../test_MATH/prealgebra/',
     '../test_MATH/precalculus/'
     ]
-
 
 eval_model_id = "Tianqiao/DeepSeek-7B-Math-Compare-Answer"
 device = "cuda"  # the device to load the model onto
@@ -83,8 +82,7 @@ for model_id in model_ids:
 
         # Loading System Prompts model-wise
         system_prompt = get_sys_prompt(model_id)
-        few_shot_prompt = get_few_shot_adv_prompt(dataset_dir)
-
+        one_shot_prompt = get_one_shot_wrong_hint_prompt(dataset_dir)
         for json_file in os.listdir(dataset_dir):
             if json_file.endswith('.json'):
                 file_path = os.path.join(dataset_dir, json_file)
@@ -99,25 +97,25 @@ for model_id in model_ids:
                 if model_id == "google/gemma-2-2b-it":
                     messages = [
                         {"role": "user", "content": f"""{system_prompt}: 
-                        {few_shot_prompt}
-                        Problem: {problem}"""}
+                        {one_shot_prompt}
+                        Problem to be solved: {problem}"""}
                         ]
                 elif model_id == "meta-llama/Meta-Llama-3.1-8B":
                     messages = [
                         f"""{system_prompt}: 
-                        {few_shot_prompt}
-                        Problem: {problem}"""
+                        {one_shot_prompt}
+                        Problem to be solved: {problem}"""
                         ]
                 elif model_id == "mistralai/Mistral-7B-Instruct-v0.3":
                     messages = [
                         f"""<s>[INST] Using this information : {system_prompt} 
                         Answer the Question :
-                        {few_shot_prompt} 
-                        Problem: {problem} [/INST]"""
+                        {one_shot_prompt} 
+                        Problem to be solved: {problem} [/INST]"""
                         ]
                 else:
-                    user_prompt= f"""{few_shot_prompt}
-                    Problem: {problem}"""
+                    user_prompt= f"""{one_shot_prompt}
+                    Problem to be solved: {problem}"""
                     messages = [
                         {"role": "system", "content": system_prompt},
                         {"role": "user", "content": user_prompt}
@@ -139,10 +137,10 @@ for model_id in model_ids:
                         assistant_response = outputs[0]["generated_text"][-1]["content"]
                 except (IndexError, AttributeError) as e:
                     print(f"Error extracting solution for {json_file}: {e}")
-                #output = combined_function(f"""r'''{assistant_response}'''""")
+                output = combined_function(f"""r'''{assistant_response}'''""")
 
                 #Confirming the answers
-                prompt = build_user_query(problem, assistant_response, final_solution, base_prompt)
+                prompt = build_user_query(problem, output, final_solution, base_prompt)
                 model_inputs = tokenizer([prompt], return_tensors="pt").to(device)
                 generated_ids = model.generate(model_inputs.input_ids, temperature=0, max_new_tokens=16, eos_token_id=100005)
                 generated_ids = [
@@ -160,7 +158,7 @@ for model_id in model_ids:
     model_eval = correct_model_eval/total_model_eval  
     model_results['final'] = model_eval
     modelname = model_name(model_id)       
-    file_path = '/home/aniketa/vlg/copyright-project/shivank/transformers/LLM-Math/Evaluation/Dataset_score' + f'few-shot_adv_{modelname}.json'
+    file_path = '/home/aniketa/vlg/copyright-project/shivank/transformers/LLM-Math/Evaluation/Dataset_score' + f'one-shot_wrong_hint_{modelname}.json'
     with open(file_path, 'w') as file:
         json.dump(model_results, file, indent=4)
 print("All models evaluated.")

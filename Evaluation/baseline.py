@@ -7,6 +7,8 @@ import json
 from utils.metrics import combined_function
 from utils.prompting_functions import get_sys_prompt, model_name
 
+login()
+
 model_ids = [
   #  "meta-llama/Meta-Llama-3.1-8B",
     "meta-llama/Meta-Llama-3.1-8B-Instruct",
@@ -98,21 +100,21 @@ for model_id in model_ids:
                 if model_id == "google/gemma-2-2b-it":
                     messages = [
                         {"role": "user", "content": f"""{system_prompt}:
-                        Problem: {problem}"""}
+                        Problem to be solved: {problem}"""}
                         ]
                 elif model_id == "meta-llama/Meta-Llama-3.1-8B":
                     messages = [
                         f"""{system_prompt}: 
-                        Problem: {problem}"""
+                        Problem to be solved: {problem}"""
                         ]
                 elif model_id == "mistralai/Mistral-7B-Instruct-v0.3":
                     messages = [
                         f"""<s>[INST] Using this information : {system_prompt} 
                         Answer the Question : 
-                        Problem: {problem} [/INST]"""
+                        Problem to be solved: {problem} [/INST]"""
                         ]
                 else:
-                    user_prompt = f"""Problem: {problem}"""
+                    user_prompt = f"""Problem to be solved: {problem}"""
                     messages = [
                         {"role": "system", "content": system_prompt},
                         {"role": "user", "content": user_prompt}
@@ -134,9 +136,10 @@ for model_id in model_ids:
                         assistant_response = outputs[0]["generated_text"][-1]["content"]
                 except (IndexError, AttributeError) as e:
                     print(f"Error extracting solution for {json_file}: {e}")
+                output = combined_function(f"""r'''{assistant_response}'''""")
 
                 #Confirming the answers
-                prompt = build_user_query(problem, assistant_response, final_solution, base_prompt)
+                prompt = build_user_query(problem, output, final_solution, base_prompt)
                 model_inputs = tokenizer([prompt], return_tensors="pt").to(device)
                 generated_ids = model.generate(model_inputs.input_ids, temperature=0, max_new_tokens=16, eos_token_id=100005)
                 generated_ids = [
