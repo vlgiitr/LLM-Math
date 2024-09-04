@@ -4,5 +4,6 @@
     "type": "Counting & Probability",
     "solution": "By the Binomial Theorem applied to $(x+(-1))^9$, this term is $\\binom98x^8(-1)^1=-9x^8$.  The coefficient of this term is $\\boxed{-9}$.",
     "hint": "To find the coefficient of $x^8$, use the Binomial Theorem to expand the expression and identify the term containing $x^8$. Calculate the binomial coefficient and the coefficient of the remaining factor to determine the overall coefficient of $x^8$. \n",
+    "ad_hint": "To find the coefficient of $x^8$, use the Binomial Theorem to expand the expression and identify the term containing $x^7$. Calculate the binomial coefficient and the coefficient of the remaining factor to determine the overall coefficient of $x^8$. \n",
     "answer": "-9"
 }

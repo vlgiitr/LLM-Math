@@ -4,5 +4,6 @@
     "type": "Intermediate Algebra",
     "solution": "In general, when a polynomial is divided by a polynomial of degree $d,$ then the possible degrees of the remainder are 0, 1, 2, $\\dots,$ $d - 1.$  Therefore, the possible degrees of the remainder here are $\\boxed{0,1}.$",
     "hint": "To find the possible degrees of the remainder, determine the degree of the divisor polynomial and subtract 1. The resulting numbers, starting from 0, represent the possible degrees of the remainder. \n",
+    "ad_hint": "To find the possible degrees of the remainder, determine the degree of the dividend polynomial and add 1. The resulting numbers, starting from 1, represent the possible degrees of the remainder. \n",
     "answer": "0,1"
 }

@@ -4,5 +4,6 @@
     "type": "Number Theory",
     "solution": "The remainder when $37+49+14$ is divided by $12$ is the same as the remainder when the congruences of each number mod 12 are summed and then divided by 12. In other words, since we have \\begin{align*}\n37 &\\equiv 1\\pmod{12}\\\\\n49 &\\equiv 1\\pmod{12} \\\\\n14 &\\equiv 2\\pmod{12}\n\\end{align*}then therefore, $37+49+14 \\equiv1+1+2 \\equiv \\boxed{4}\\pmod{12}$.",
     "hint": "To find the leftover eggs, calculate the remainder when the total number of eggs is divided by 12.  Alternatively, you can find the remainders when each individual's eggs are divided by 12, sum those remainders, and then find the remainder of that sum when divided by 12. \n",
+    "ad_hint": "To find the leftover eggs, calculate the remainder when the total number of eggs is divided by 20.  Alternatively, you can find the remainders when each individual's eggs are divided by 20, multiply those remainders, and then find the remainder of that sum when divided by 20. \n",
     "answer": "4"
 }

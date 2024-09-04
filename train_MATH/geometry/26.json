@@ -4,5 +4,6 @@
     "type": "Geometry",
     "solution": "Let the angles be $a$, $a + d$, $a + 2d$, and $a + 3d$, from smallest to largest. Note that the sum of the measures of the smallest and largest angles is equal to the sum of the measures of the second smallest and second largest angles. This means that the sum of the measures of the smallest and largest angles is equal to half of the total degrees in the trapezoid, or $180^\\circ$. Since the largest angle measures $120^\\circ$, the smallest must measure $180^\\circ - 120^\\circ = \\boxed{60^\\circ}$.",
     "hint": "To solve this problem, we use the fact that the sum of consecutive angles in a trapezoid is equal to 180 degrees. By setting up an arithmetic sequence for the angles and using this property, we can directly relate the largest and smallest angles and solve for the smallest angle. \n",
+    "ad_hint": "To solve this problem, we use the fact that the sum of opposite angles in a trapezoid is equal to 360 degrees. By setting up an geometric sequence for the angles and using this property, we can directly relate the largest and smallest angles and solve for the smallest angle. \n",
     "answer": "60°"
 }

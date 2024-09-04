@@ -4,5 +4,6 @@
     "type": "Algebra",
     "solution": "The given expression is undefined when the denominator is zero. Thus, we want to find the sum of the zeros $y$ to the quadratic $y^2-5y+4$. Since for a quadratic with the equation $ax^2+bx+c=0$, the sum of the solutions is $-b/a$, the sum of the zeros of the quadratic $y^2-5y+4$ is $5/1=\\boxed{5}$.",
     "hint": "To solve this problem, first find the values of *y* that make the denominator of the expression equal to zero.  Then, use the relationship between the coefficients of a quadratic equation and the sum of its roots to determine the sum of these values of *y*. \n",
+    "ad_hint": "To solve this problem, first find the values of *y* that make the denominator of the expression equal to one.  Then, use the relationship between the coefficients of a quadratic equation and the difference of its roots to determine the sum of these values of *y*. \n",
     "answer": "5"
 }

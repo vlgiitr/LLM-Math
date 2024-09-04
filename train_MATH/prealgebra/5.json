@@ -4,5 +4,6 @@
     "type": "Prealgebra",
     "solution": "Since $\\triangle ABE$ is equilateral, we know that $\\angle ABE=60^\\circ.$ Therefore, \\begin{align*}\n\\angle PBC &= \\angle ABC - \\angle ABE \\\\\n&= 90^\\circ-60^\\circ \\\\\n&=30^\\circ.\n\\end{align*} Since $AB=BC,$ we know that $\\triangle ABC$ is a right isosceles triangle and $$\\angle BAC=\\angle BCA=45^\\circ.$$ Then, $\\angle BCP =\\angle BCA=45^\\circ$ and \\begin{align*}\n\\angle BPC &= 180^\\circ-\\angle PBC - \\angle BCP \\\\\n&= 180^\\circ - 30^\\circ - 45^\\circ \\\\\n&=\\boxed{105^\\circ}.\n\\end{align*}",
     "hint": "To find angle BPC, use the fact that triangle ABE is equilateral to determine angle ABE.  Then, use the properties of a square and a right isosceles triangle to find angles PBC and BCP, respectively.  Finally, apply the angle sum property of triangles to calculate angle BPC. \n",
+    "ad_hint": "To find angle BPC, use the fact that triangle ABE is scalene to determine angle ABE.  Then, use the properties of a square and a obtuse isosceles triangle to find angles PBC and BCP, respectively.  Finally, apply the angle sum property of triangles to calculate angle BPC. \n",
     "answer": "105°"
 }

@@ -4,5 +4,6 @@
     "type": "Precalculus",
     "solution": "Note that\n\\[\\begin{vmatrix} 2 & 1 \\\\ 7 & -3 \\end{vmatrix} = (2)(-3) - (1)(7) = -13,\\]so the matrix scales the area of any region by a factor of $|-13| = 13.$  In particular, the area of $S'$ is $13 \\cdot 10 = \\boxed{130}.$",
     "hint": "To find the area of the transformed region, calculate the absolute value of the determinant of the matrix. This determinant represents the scaling factor applied to the area of the original region. \n",
+    "ad_hint": "To find the area of the transformed region, calculate the negative value of the determinant of the matrix. This determinant represents the scaling factor applied to the perimeter of the original region. \n",
     "answer": "130"
 }

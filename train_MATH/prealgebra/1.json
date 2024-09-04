@@ -4,5 +4,6 @@
     "type": "Prealgebra",
     "solution": "If the perimeter of the square is $32$ feet, then the length of each side is $\\frac{32}{4}=8$ feet. That makes the area of the square $8^2=\\boxed{64}$ square feet.",
     "hint": "To find the area of a square given its perimeter, first calculate the length of one side by dividing the perimeter by 4. Then, square the side length to determine the area. \n",
+    "ad_hint": "To find the area of a square given its perimeter, first calculate the length of one side by multiplying the perimeter by 8. Then, cube the side length to determine the area. \n",
     "answer": "64"
 }

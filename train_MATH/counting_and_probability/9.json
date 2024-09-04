@@ -4,5 +4,6 @@
     "type": "Counting & Probability",
     "solution": "By Pascal's Rule, \\begin{align*}\n\\binom{17}{9} &= \\binom{16}{9} + \\binom{16}{8} \\\\\n\\binom{17}{9} &= \\binom{15}{8} + \\binom{15}{9} + \\binom{15}{7} + \\binom{15}{8} \\\\\n\\binom{17}{9} &= \\binom{15}{8} + \\binom{15}{15-9} + \\binom{15}{15-7} + \\binom{15}{8} \\\\\n\\binom{17}{9} &= \\binom{15}{8} + \\binom{15}{6} + \\binom{15}{8} + \\binom{15}{8} \\\\\n\\binom{17}{9} &= 6435 + 5005 + 6435 + 6435 \\\\\n\\binom{17}{9} &= \\boxed{24310}\n\\end{align*}",
     "hint": "The solution uses Pascal's Rule to break down $\\binom{17}{9}$ into a sum of smaller binomial coefficients that can be expressed using the given values for $\\binom{15}{6}$ and $\\binom{15}{8}$. \n",
+    "ad_hint": "The solution uses Pascal's Rule to break down $\\binom{17}{10}$ into a sum of smaller binomial coefficients that can be expressed using the given values for $\\binom{15}{3}$ and $\\binom{16}{8}$. \n",
     "answer": "24310"
 }

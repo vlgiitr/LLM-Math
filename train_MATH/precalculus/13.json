@@ -4,5 +4,6 @@
     "type": "Precalculus",
     "solution": "We have that\n\\[\\begin{vmatrix} 7 & 3 \\\\ -1 & 2 \\end{vmatrix} = (7)(2) - (3)(-1) = \\boxed{17}.\\]",
     "hint": "To compute the determinant of a 2x2 matrix, multiply the elements on the main diagonal, subtract the product of the elements on the off-diagonal, and simplify. \n",
+    "ad_hint": "To compute the determinant of a 3x3 matrix, multiply the elements on the main diagonal, add the product of the elements on the off-diagonal, and simplify. \n",
     "answer": "17"
 }

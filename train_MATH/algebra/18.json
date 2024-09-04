@@ -4,5 +4,6 @@
     "type": "Algebra",
     "solution": "Substitute in the given numbers. We have $5p-5-125i=10000$, so $5p=10005+125i$, thus $p=\\boxed{2001+25i}$.",
     "hint": "To solve for *p*, substitute the given values of *f* and *w* into the equation.  Then, isolate *p* by simplifying the equation and performing algebraic operations. \n",
+    "ad_hint": "To solve for *p*, substitute the given values of *d* and *g* into the equation.  Then, isolate *p* by simplifying the equation and performing algebraic operations. \n",
     "answer": "2001+25i"
 }

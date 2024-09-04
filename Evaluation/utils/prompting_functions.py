@@ -142,16 +142,16 @@ def get_one_shot_hint_prompt(dataset_dir):
 def get_one_shot_adv_hint_prompt(dataset_dir):
     if dataset_dir == 'test_MATH/algebra/':
         example_part = "What is the sum of all values of $y$ for which the expression $\\frac{y+6}{y^2-5y+4}$ is undefined?"
-        hint = "To solve this problem, first calculate the volume of the cube. Then, set up an equation equating the volume of the cube to the volume of the pyramid. Finally, solve for the height (h) of the pyramid. \n"
+        hint = "To solve this problem, first find the values of *y* that make the denominator of the expression equal to one.  Then, use the relationship between the coefficients of a quadratic equation and the difference of its roots to determine the sum of these values of *y*. \n"
     elif dataset_dir == 'test_MATH/counting_and_probability/':
         example_part = "What is the coefficient of $x^8$ in the expansion of $(x-1)^9$?"
-        hint = "To solve this problem, first calculate the volume of the cube. Then, set up an equation equating the volume of the cube to the volume of the pyramid. Finally, solve for the height (h) of the pyramid. \n"
+        hint = "To find the coefficient of $x^8$, use the Binomial Theorem to expand the expression and identify the term containing $x^7$. Calculate the binomial coefficient and the coefficient of the remaining factor to determine the overall coefficient of $x^8$. \n"
     elif dataset_dir == 'test_MATH/geometry/':
         example_part = "A cube with an edge length of 4 units has the same volume as a square-based pyramid with base edge lengths of 8 units and a height of $h$ units. What is the value of $h$?"
-        hint = "To find the coefficient of $x^8$, use the Binomial Theorem to expand the expression and identify the term containing $x^8$. Calculate the binomial coefficient and the coefficient of the remaining factor to determine the overall coefficient of $x^8$. \n"
+        hint = "To solve this problem, first calculate the area of the square. Then, set up an equation equating the area of the square to the volume of the pyramid. Finally, solve for the height (h) of the pyramid. \n"
     elif dataset_dir == 'test_MATH/intermediate_algebra/':
         example_part = "Let $a$ and $b$ be nonzero real numbers such that\n\\[(2 - 7i)(a + bi)\\]is pure imaginary.  Find $\\frac{a}{b}.$"
-        hint = "To solve this problem, first calculate the volume of the cube. Then, set up an equation equating the volume of the cube to the volume of the pyramid. Finally, solve for the height (h) of the pyramid. \n"
+        hint = "To find the ratio b/a, we need to expand the given expression, equate the real part to one, and then solve for the ratio a/b. \n"
     elif dataset_dir == 'test_MATH/number_theory/':
         example_part = "When the binary number $100101110010_2$ is divided by 4, what is the remainder (give your answer in base 10)?"
         hint = "To solve this problem, first calculate the volume of the cube. Then, set up an equation equating the volume of the cube to the volume of the pyramid. Finally, solve for the height (h) of the pyramid. \n"
@@ -278,7 +278,7 @@ def get_few_shot_adv_hint_prompt(dataset_dir):
             with open(file_path, 'r') as file:
                 data = json.load(file)
             problem = data.get('problem', '')
-            hint = data.get('adv-hint', '')
+            hint = data.get('ad_hint', '')
             few_shot_prompt = few_shot_prompt + f"""
 Example Problem: {problem}
 Hint for Example: {hint}"""

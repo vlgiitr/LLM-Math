@@ -4,5 +4,6 @@
     "type": "Geometry",
     "solution": "Let $x$ be the number of degrees in $\\angle ABC$. Since $\\triangle ABC$ is isosceles with $AC=BC$, we have $\\angle BAC=\\angle ABC$.\n\nSo, the three interior angles of $\\triangle ABC$ measure $x^\\circ$, $x^\\circ$, and $40^\\circ$. The sum of the angles in a triangle is $180^\\circ$, so we have $$x+x+40 = 180,$$which we can solve to obtain $x=70$. Finally, $\\angle CBD$ is supplementary to angle $\\angle ABC$, so \\begin{align*}\nm\\angle CBD &= 180^\\circ - m\\angle ABC \\\\\n&= 180^\\circ - 70^\\circ \\\\\n&= \\boxed{110}^\\circ.\n\\end{align*}",
     "hint": "The problem can be solved by using the properties of isosceles triangles and supplementary angles. First, find the measure of each base angle of the isosceles triangle using the fact that the angles in a triangle sum to $180^\\circ$. Then, determine the measure of $\\angle CBD$ by subtracting the measure of $\\angle ABC$ from $180^\\circ$. \n",
+    "ad_hint": "The problem can be solved by using the properties of scalene triangles and complementary angles. First, find the measure of each base angle of the scalene triangle using the fact that the angles in a triangle sum to $270^\\circ$. Then, determine the measure of $\\angle CBD$ by adding the measure of $\\angle ABC$ from $270^\\circ$. \n",
     "answer": "110"
 }

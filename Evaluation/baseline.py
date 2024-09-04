@@ -7,8 +7,6 @@ import json
 from utils.metrics import combined_function
 from utils.prompting_functions import get_sys_prompt, model_name
 
-login()
-
 model_ids = [
   #  "meta-llama/Meta-Llama-3.1-8B",
     "meta-llama/Meta-Llama-3.1-8B-Instruct",
@@ -35,15 +33,6 @@ dataset_dirs = [
 
 eval_model_id = "Tianqiao/DeepSeek-7B-Math-Compare-Answer"
 device = "cuda"  # the device to load the model onto
-model = AutoModelForCausalLM.from_pretrained(
-    eval_model_id,
-    quantization_config=BitsAndBytesConfig(
-        load_in_4bit=True
-        ), 
-    torch_dtype="auto", 
-    device_map="auto", 
-)
-tokenizer = AutoTokenizer.from_pretrained(eval_model_id)
 
 chat_prompt = """<|im_start|>system
 You are a helpful assistant.<|im_end|>
@@ -77,6 +66,16 @@ for model_id in model_ids:
             "quantization_config": {"load_in_4bit": True}
         }
     )
+
+    model = AutoModelForCausalLM.from_pretrained(
+        eval_model_id,
+        quantization_config=BitsAndBytesConfig(
+            load_in_4bit=True
+            ), 
+        torch_dtype="auto", 
+        device_map="auto", 
+    )
+    tokenizer = AutoTokenizer.from_pretrained(eval_model_id)
 
     #iterating through datasets
     for dataset_dir in dataset_dirs:
@@ -136,10 +135,10 @@ for model_id in model_ids:
                         assistant_response = outputs[0]["generated_text"][-1]["content"]
                 except (IndexError, AttributeError) as e:
                     print(f"Error extracting solution for {json_file}: {e}")
-                output = combined_function(f"""r'''{assistant_response}'''""")
+                #assistant_response = combined_function(f"""r'''{assistant_response}'''""")
 
                 #Confirming the answers
-                prompt = build_user_query(problem, output, final_solution, base_prompt)
+                prompt = build_user_query(problem, assistant_response, final_solution, base_prompt)
                 model_inputs = tokenizer([prompt], return_tensors="pt").to(device)
                 generated_ids = model.generate(model_inputs.input_ids, temperature=0, max_new_tokens=16, eos_token_id=100005)
                 generated_ids = [
@@ -160,4 +159,6 @@ for model_id in model_ids:
     file_path = '/home/aniketa/vlg/copyright-project/shivank/transformers/LLM-Math/Evaluation/Dataset_score' + f'base_{modelname}.json'
     with open(file_path, 'w') as file:
         json.dump(model_results, file, indent=4)
+    torch.cuda.empty_cache()
+
 print("All models evaluated.")
