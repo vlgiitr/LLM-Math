@@ -7,6 +7,8 @@ import json
 from utils.metrics import combined_function
 from utils.prompting_functions import get_sys_prompt, model_name, get_few_shot_adv_hint_prompt
 
+login()
+
 model_ids = [
   #  "meta-llama/Meta-Llama-3.1-8B",
     "meta-llama/Meta-Llama-3.1-8B-Instruct",
@@ -51,6 +53,16 @@ def build_user_query(question, pred_answer, answer, base_prompt):
     input_text = input_text.replace("{{analysis}}", "") # default set analysis to blank, if exist, you can pass in the corresponding parameter.
     return input_text
 
+model = AutoModelForCausalLM.from_pretrained(
+    eval_model_id,
+    quantization_config=BitsAndBytesConfig(
+        load_in_4bit=True
+        ), 
+    torch_dtype="auto", 
+    device_map="auto", 
+)
+tokenizer = AutoTokenizer.from_pretrained(eval_model_id)
+
 # Iterate through each JSON file in the dataset
 for model_id in model_ids:
     model_results = {}
@@ -67,15 +79,6 @@ for model_id in model_ids:
         }
     )
 
-    model = AutoModelForCausalLM.from_pretrained(
-        eval_model_id,
-        quantization_config=BitsAndBytesConfig(
-            load_in_4bit=True
-            ), 
-        torch_dtype="auto", 
-        device_map="auto", 
-    )
-    tokenizer = AutoTokenizer.from_pretrained(eval_model_id)
 
     #iterating through datasets
     for dataset_dir in dataset_dirs:
