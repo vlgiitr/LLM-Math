@@ -5,6 +5,9 @@ import os
 import json
 import argparse
 from pathlib import Path
+from utils.metrics import combined_function
+from utils.prompting_functions import get_sys_prompt, model_name, get_dir_adv_hint
+
 
 def setup_args():
     parser = argparse.ArgumentParser(description='Evaluate math models on test datasets')
@@ -91,8 +94,8 @@ def main():
         device_map="auto"
     )
     tokenizer = AutoTokenizer.from_pretrained(eval_model_id)
-    
     dataset_dirs = get_dataset_dirs(args.dataset_dir)
+    
     
     for model_id in get_model_ids():
         print(f"\nEvaluating model: {model_id}")
