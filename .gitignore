@@ -1,5 +1,4 @@
 .venv/
-test_MATH/
 trial.py
 utils/__pycache__
 utils/api.py
